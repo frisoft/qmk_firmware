@@ -4,10 +4,12 @@
 #define _BASE 0
 #define _RAISE 1
 #define _LOWER 2
+#define _RAISE2 3
 
 // Fillers to make layering more clear
 
 #define ____ KC_TRNS
+#define XXXX KC_NO
 
 #define SFT_ESC  SFT_T(KC_ESC)
 #define CTL_BSPC CTL_T(KC_BSPC)
@@ -42,6 +44,7 @@
 #define KC_MB2 KC_MS_BTN2
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
+#define RAISE2 LM(_RAISE2, MOD_LGUI)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -81,13 +84,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_BASE] = LAYOUT( \
-  KC_Q,        KC_W,        KC_E,        KC_R,         KC_T,                                       KC_Y, KC_U,         KC_I,           KC_O,          KC_P,      \
-  KC_A,        KC_S,        KC_D,        KC_F,         KC_G,                                       KC_H, KC_J,         KC_K,           KC_L,          KC_SCLN,  \
+  KC_Q,        KC_W,        KC_E,        KC_R,         KC_T,                                       KC_Y, KC_U,         KC_I,           KC_O,          KC_P,           \
+  KC_A,        KC_S,        KC_D,        KC_F,         KC_G,                                       KC_H, KC_J,         KC_K,           KC_L,          KC_SCLN,        \
   SFT_T(KC_Z), CTL_T(KC_X), ALT_T(KC_C), LGUI_T(KC_V), KC_B,                                       KC_N, LGUI_T(KC_M), ALT_T(KC_COMM), CTL_T(KC_DOT), SFT_T(KC_QUOT), \
-               KC_LBRC,     KC_RBRC,                                                                                   KC_MINS,        KC_EQL,            \
-                                                           KC_ESC,  KC_BSPC,     KC_SPC,  KC_ENT,                                             \
-                                                           KC_TAB,  RAISE,       LOWER,   KC_DEL,                                              \
-                                                           KC_HOME, KC_GRV,      KC_LGUI, KC_END
+               KC_LBRC,     KC_RBRC,                                                                                   KC_MINS,        KC_EQL,                        \
+                                                           KC_ESC,  KC_BSPC,     KC_SPC,  KC_ENT,                                                                     \
+                                                           KC_TAB,  RAISE,       LOWER,   KC_DEL,                                                                     \
+                                                           KC_HOME, RAISE2,      KC_LGUI, KC_END
 ),
 
 /* Raise (OLD)
@@ -131,10 +134,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_RAISE] = LAYOUT( \
-  RESET,   ____,    ____,    ____,    ____,                          KC_VOLU, ____,    KC_UP,   ____,     KC_PGUP,   \
+  RESET,   ____,    ____,    ____,    ____,                          KC_VOLU, KC_HOME, KC_UP,   KC_END,   KC_PGUP,   \
   ____,    ____,    ____,    ____,    ____,                          KC_MUTE, KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDOWN, \
   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, ____,                          KC_VOLD, KC_SLSH, KC_BSLS, KC_QUES,  KC_PIPE,   \
-           ____,    ____,                                                     KC_MB1,  KC_MB2,                       \
+           ____,    ____,                                                     KC_GRV,  XXXX,                         \
                                             ____, ____,  ____, ____,                                                 \
                                             ____, ____,  ____, ____,                                                 \
                                             ____, ____,  ____, ____                                                  \
@@ -162,7 +165,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       '------+------' '------+------'
  */
 
-/*
 [_LOWER] = LAYOUT( \
   KC_F1,   KC_F2,  KC_F3,   KC_F4,  KC_F5,                            KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,  \
   KC_1,    KC_2,   KC_3,    KC_4,   KC_5,                             KC_6,    KC_7,     KC_8,    KC_9,    KC_0,    \
@@ -171,9 +173,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              ____, ____,  ____, ____,                                               \
                                              ____, ____,  ____, ____,                                               \
                                              ____, ____,  ____, ____                                                \
-)
-*/
+),
 
+/*
 [_LOWER] = LAYOUT( \
   KC_F1,          KC_F2,         KC_F3,          KC_F4,          KC_F5,                            KC_F6,   KC_F7,            KC_F8,          KC_F9,          KC_F10,         \
   KC_1,           KC_2,          KC_3,           KC_4,           KC_5,                             KC_6,    KC_7,             KC_8,           KC_9,           KC_0,           \
@@ -183,6 +185,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                           ____, ____,  ____, ____,                                                                            \
                                                                           ____, ____,  ____, ____                                                                             \
 )
+*/
+
+
+[_RAISE2] = LAYOUT( \
+  XXXX,    XXXX,    XXXX,    XXXX,    XXXX,                             XXXX,    KC_7,    KC_8,     KC_9,   XXXX,  \
+  XXXX,    XXXX,    XXXX,    XXXX,    XXXX,                             XXXX,    KC_4,    KC_5,     KC_6,   XXXX,  \
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, XXXX,                             XXXX,    KC_1,    KC_2,     KC_3,   XXXX,  \
+           XXXX,    XXXX,                                                                 KC_0,     XXXX,          \
+                                              ____, ____,  ____, ____,                                             \
+                                              ____, ____,  ____, ____,                                             \
+                                              ____, ____,  ____, ____                                              \
+)
+
+
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {
