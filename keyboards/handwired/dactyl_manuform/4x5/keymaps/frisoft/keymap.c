@@ -5,6 +5,7 @@
 #define _RAISE1 1
 #define _RAISE2 2
 #define _RAISE3 3
+#define _NUMPAD 4  
 
 // Fillers to make layering more clear
 
@@ -44,7 +45,7 @@
 #define KC_MB2 KC_MS_BTN2
 #define RAISE1 MO(_RAISE1)
 // #define RAISE2 LM(_RAISE2, MOD_LGUI)
-#define RAISE2 MO(_RAISE2)
+// #define RAISE2 MO(_RAISE2)
 #define RAISE3 MO(_RAISE3)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -54,12 +55,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   q  |   w  |   e  |   r  |   t  |                             |   y  |   u  |   i  |   o  |   p  |
  * |------+------+------+------+------|                             |-------------+------+------+------|
  * |      |   s  |   d  |   f  |      |                             |      |   j  |   k  |   l  |      |
- * |   a  |   +  |   +  |   +  |   g  |                             |   h  |   +  |   +  |   +  |   ;  |
+ * |   a  |   +  |   +  |   +  |   g  |                             |   h  |   +  |   +  |   +  |  ;:  |
  * |      |  ALT | CTRL | SHIFT|      |                             |      |SHIFT | CTRL |  ALT |      |
  * |------+------+------+------+------|                             |------|------+------+------+------|
- * |   z  |   x  |   c  |   v  |   b  |                             |   n  |   m  |   ,  |   .  |   '  |
+ * |   z  |   x  |   c  |   v  |   b  |                             |   n  |   m  |  ,<  |  .>  |  '"  |
  * |------+------+------+-------------,                             ,-------------+------+------+------,
- *        |  [   |   ]  |                                                         |   -  |   =  |
+ *        |  [{  |  ]}  |                                                         |  -_  |  =+  |
  *        '------+------'-------------'                             '-------------'------+------'
  *                      | ESC  |  BS  |                             | SPACE|ENTER |
  *                      |  +   |   +  |                             |  +   |  +   |
@@ -69,8 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    | TAB  | HOME | | END  | DEL  |
  *                                    '------+------' '------+------'
  *                                    | Raise|  ~   | | GUI  | Lower|
- *                                    '------+------' '------+------'
- */
+ *                                    '------+------' '------+------' */
 
 /*
 [_BASE] = LAYOUT( \
@@ -85,14 +85,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_BASE] = LAYOUT( \
-  KC_Q,        KC_W,         KC_E,        KC_R,        KC_T,                                       KC_Y, KC_U,         KC_I,           KC_O,           KC_P,          \
-  KC_A,        KC_S,         KC_D,        KC_F,        KC_G,                                       KC_H, KC_J,         KC_K,           KC_L,           KC_SCLN,       \
-  SFT_T(KC_Z), LGUI_T(KC_X), ALT_T(KC_C), CTL_T(KC_V), KC_B,                                       KC_N, CTL_T(KC_M),  ALT_T(KC_COMM), LGUI_T(KC_DOT), SFT_T(KC_QUOT),\
-               KC_LBRC,      KC_RBRC,                                                                                  KC_MINS,        KC_EQL,                        \
-                                                           KC_ESC,  KC_BSPC,     KC_SPC,  KC_ENT,                                                                     \
-                                                           KC_TAB,  RAISE1,      RAISE3,  KC_DEL,                                                                     \
-                                                           KC_HOME, RAISE2,      KC_LGUI, KC_END
+  KC_Q,        KC_W,         KC_E,             KC_R,        KC_T,                                       KC_Y, KC_U,         KC_I,           KC_O,           KC_P,    \
+  KC_A,        KC_S,         KC_D, LT(_RAISE1,KC_F),        KC_G,                                       KC_H, KC_J,         KC_K,           KC_L,           LT(_RAISE1,KC_SCLN), \
+  SFT_T(KC_Z), KC_X,         KC_C, LT(_NUMPAD,KC_V),        KC_B,                                       KC_N, KC_M,         KC_COMM,        KC_DOT,         SFT_T(KC_QUOT), \
+               KC_LBRC,      KC_RBRC,                                                                                  KC_MINS,        KC_EQL,                \
+                                                        KC_ESC, KC_BSPC,                     LT(_RAISE1,KC_SPC),  KC_ENT,                                          \
+                                                 OSM(MOD_LCTL), OSM(MOD_LSFT),              LT(_RAISE2, KC_TAB),  OSM(MOD_LCTL),                                         \
+                                                       KC_LALT, OSM(MOD_LGUI),                    OSM(MOD_LGUI),  OSL(_RAISE3)
 ),
+
+[_RAISE1] = LAYOUT( \
+  RESET,   ____,    ____,    ____,    ____,                          LALT(KC_LEFT), KC_PGDOWN, KC_PGUP, LALT(KC_RIGHT), ____, \
+  ____,    ____,    ____,    ____,    ____,                          KC_LEFT,       KC_DOWN,   KC_UP,   KC_RIGHT,       ____, \
+  ____,    ____,    ____,    ____,    ____,                          ____,          ____,       ____,       ____,       ____, \
+           ____,    ____,                                                                       ____,       ____,             \
+                                            ____, ____,  ____, ____,                                                          \
+                                            ____, ____,  ____, ____,                                                          \
+                                            ____, ____,  ____, ____                                                           \
+),
+
+[_NUMPAD] = LAYOUT( \
+  ____,    ____,    ____,    ____,    ____,                          ____,   KC_7,   KC_8,   KC_9, ____, \
+  ____,    ____,    ____,    ____,    ____,                          ____,   KC_4,   KC_5,   KC_6,       ____, \
+  ____,    ____,    ____,    ____,    ____,                          ____,   KC_1,   KC_2,   KC_3,       ____, \
+           ____,    ____,                                                            KC_0,   KC_DOT,             \
+                                            ____, ____,  ____, ____,                                                          \
+                                            ____, ____,  ____, ____,                                                          \
+                                            ____, ____,  ____, ____                                                           \
+),
+
+[_RAISE2] = LAYOUT( \
+  KC_EXLM,      KC_AT,         KC_HASH,      KC_DLR,       KC_PERC,                          KC_CIRC, KC_AMPR,      KC_ASTR,      KC_LPRN,       KC_RPRN,       \
+  KC_1,         KC_2,          KC_3,         KC_4,         KC_5,                             KC_6,    KC_7,         KC_8,         KC_9,          KC_0,          \
+  XXXX,         XXXX,          XXXX,         XXXX,         KC_TILDE,                         KC_GRV,  KC_BSLS,      KC_SLSH,      KC_QUES,       KC_PIPE,       \
+                KC_F11,        KC_F12,                                                                              ____,         ____,                         \
+                                                                    ____, ____,  ____, ____,                                                                    \
+                                                                    ____, ____,  ____, ____,                                                                    \
+                                                                    ____, ____,  ____, ____                                                                     \
+),
+
+[_RAISE3] = LAYOUT( \
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                            KC_F6,   KC_F7,   KC_F8,    KC_F9,  KC_F10, \
+  ____,    ____,    ____,    ____,    ____,                             ____,    ____,    ____,     KC_F11, KC_F12, \
+  ____,    ____,    ____,    ____,    ____,                             ____,    ____,    ____,     ____,   ____,   \
+           ____,    ____,                                                                 ____,     ____,           \
+                                              ____, ____,  ____, ____,                                              \
+                                              ____, ____,  ____, ____,                                              \
+                                              ____, ____,  ____, ____                                               \
+)
 
 /* Raise (OLD)
  * ,----------------------------------,                             ,----------------------------------,
@@ -134,29 +174,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 */
 
-[_RAISE1] = LAYOUT( \
-  RESET,   ____,    ____,    ____,    ____,                          KC_VOLU, KC_HOME, KC_UP,   KC_END,   KC_PGUP,   \
-  ____,    ____,    ____,    ____,    ____,                          KC_MUTE, KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDOWN, \
-  ____,    ____,    ____,    ____,    ____,                          KC_VOLD, KC_SLSH, KC_BSLS, KC_QUES,  KC_PIPE,   \
-           ____,    ____,                                                     KC_GRV,  XXXX,                         \
-                                            ____, ____,  ____, ____,                                                 \
-                                            ____, ____,  ____, ____,                                                 \
-                                            ____, ____,  ____, ____                                                  \
-),
 
 
-[_RAISE2] = LAYOUT( \
-  XXXX,    XXXX,    XXXX,    XXXX,    XXXX,                             XXXX,    KC_7,    KC_8,     KC_9,   XXXX,  \
-  XXXX,    XXXX,    XXXX,    XXXX,    XXXX,                             XXXX,    KC_4,    KC_5,     KC_6,   XXXX,  \
-  ____,    ____,    ____,    ____,    XXXX,                             XXXX,    KC_1,    KC_2,     KC_3,   XXXX,  \
-           XXXX,    XXXX,                                                                 KC_0,     XXXX,          \
-                                              ____, ____,  ____, ____,                                             \
-                                              ____, ____,  ____, ____,                                             \
-                                              ____, ____,  ____, ____                                              \
-),
-
-
-/* Raise3
+/* Raise2
  * ,-------------------------------------,                             ,-------------------------------------,
  * |  F1  |  F2   |  F3   |  F4   |  F5  |                             |  F6  |  F7   |  F8   |  F9   |  F10 |
  * |------+-------+-------+-------+------|                             |--------------+-------+-------+------|
@@ -179,15 +199,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       '------+------' '------+------'
  */ 
 
-[_RAISE3] = LAYOUT( \
-  KC_EXLM,      KC_AT,         KC_HASH,      KC_DLR,       KC_PERC,                          KC_CIRC, KC_AMPR,      KC_ASTR,      KC_LPRN,       KC_RPRN,       \
-  KC_1,         KC_2,          KC_3,         KC_4,         KC_5,                             KC_6,    KC_7,         KC_8,         KC_9,          KC_0,          \
-  SFT_T(KC_F1), LGUI_T(KC_F2), ALT_T(KC_F3), CTL_T(KC_F4), KC_F5,                            KC_F6,   CTL_T(KC_F7), ALT_T(KC_F8), LGUI_T(KC_F9), SFT_T(KC_F10), \
-                KC_F11,        KC_F12,                                                                              ____,         ____,                         \
-                                                                    ____, ____,  ____, ____,                                                                    \
-                                                                    ____, ____,  ____, ____,                                                                    \
-                                                                    ____, ____,  ____, ____                                                                     \
-)
 
 /*
 [_LOWER] = LAYOUT( \
@@ -208,3 +219,26 @@ void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
+
+
+/* combos */
+/*
+enum combos {
+  TI_TICK,
+  SL_SLASH,
+  HA_HASH,
+  PI_PIPE
+};
+
+const uint16_t PROGMEM ti_combo[] = {KC_T, KC_I, COMBO_END};
+const uint16_t PROGMEM sl_combo[] = {KC_S, KC_L, COMBO_END};
+const uint16_t PROGMEM ha_combo[] = {KC_H, KC_A, COMBO_END};
+const uint16_t PROGMEM pi_combo[] = {KC_P, KC_I, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [TI_TICK] = COMBO(ti_combo, KC_GRV),
+  [SL_SLASH] = COMBO(sl_combo, KC_SLSH),
+  [HA_HASH] = COMBO(ha_combo, KC_HASH),
+  [PI_PIPE] = COMBO(pi_combo, KC_PIPE)
+};
+*/

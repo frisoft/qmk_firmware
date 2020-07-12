@@ -30,3 +30,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
+
+// #define COMBO_COUNT 4
+// #define COMBO_TERM 200
+
+// #define AUTO_SHIFT_TIMEOUT 150
+// #defi
+
+#define TAPPING_TERM 200
+#define PERMISSIVE_HOLD
+
+// #define ONESHOT_TAP_TOGGLE 0  /* Tapping this number of times holds the key until tapped once again. */
+#define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
