@@ -2,10 +2,11 @@
 
 
 #define _BASE 0
-#define _RAISE1 1
-#define _RAISE2 2
-#define _RAISE3 3
+#define _NAV 1
+// #define _RAISE2 2
+// #define _RAISE3 3
 #define _NUMPAD 4  
+#define _SYM 5  
 
 // Fillers to make layering more clear
 
@@ -43,7 +44,7 @@
 #define KC_MD KC_MS_DOWN
 #define KC_MB1 KC_MS_BTN1
 #define KC_MB2 KC_MS_BTN2
-#define RAISE1 MO(_RAISE1)
+// #define RAISE1 MO(_NAV)
 // #define RAISE2 LM(_RAISE2, MOD_LGUI)
 // #define RAISE2 MO(_RAISE2)
 #define RAISE3 MO(_RAISE3)
@@ -85,19 +86,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_BASE] = LAYOUT( \
-  KC_Q,        KC_W,         KC_E,             KC_R,        KC_T,                                       KC_Y, KC_U,         KC_I,           KC_O,           KC_P,    \
-  KC_A,        KC_S,         KC_D, LT(_RAISE1,KC_F),        KC_G,                                       KC_H, KC_J,         KC_K,           KC_L,           LT(_RAISE1,KC_SCLN), \
-  SFT_T(KC_Z), KC_X,         KC_C, LT(_NUMPAD,KC_V),        KC_B,                                       KC_N, KC_M,         KC_COMM,        KC_DOT,         SFT_T(KC_QUOT), \
-               KC_LBRC,      KC_RBRC,                                                                                  KC_MINS,        KC_EQL,                \
-                                                        KC_ESC, KC_BSPC,                     LT(_RAISE1,KC_SPC),  KC_ENT,                                          \
-                                                 OSM(MOD_LCTL), OSM(MOD_LSFT),              LT(_RAISE2, KC_TAB),  OSM(MOD_LCTL),                                         \
-                                                       KC_LALT, OSM(MOD_LGUI),                    OSM(MOD_LGUI),  OSL(_RAISE3)
+  KC_Q,        KC_W,          KC_E,             KC_R,          KC_T,                              KC_Y, KC_U,         KC_I,           KC_O,           KC_P,    \
+  KC_A,        LT(_SYM,KC_S), LT(_NUMPAD,KC_D), LT(_NAV,KC_F), KC_G,                              KC_H, KC_J,         KC_K,           KC_L,           LT(_NAV,KC_SCLN), \
+  SFT_T(KC_Z), KC_X,          KC_C,             KC_V,          KC_B,                              KC_N, KC_M,         KC_COMM,        KC_DOT,         SFT_T(KC_QUOT), \
+               KC_LBRC,       KC_RBRC,                                                                                KC_MINS,        KC_EQL,                \
+                                                        KC_ESC, KC_BSPC,                           KC_SPC, KC_ENT,                                  \
+                                                 OSM(MOD_LCTL), OSM(MOD_LSFT),              OSM(MOD_RSFT), OSM(MOD_RCTL),                                  \
+                                                 OSM(MOD_LALT), GUI_T(KC_TAB),              OSM(MOD_LGUI), OSM(MOD_LALT)
 ),
 
-[_RAISE1] = LAYOUT( \
+[_NAV] = LAYOUT( \
   RESET,   ____,    ____,    ____,    ____,                          LALT(KC_LEFT), KC_PGDOWN, KC_PGUP, LALT(KC_RIGHT), ____, \
   ____,    ____,    ____,    ____,    ____,                          KC_LEFT,       KC_DOWN,   KC_UP,   KC_RIGHT,       ____, \
-  ____,    ____,    ____,    ____,    ____,                          ____,          ____,       ____,       ____,       ____, \
+  ____,    ____,    ____,    ____,    ____,                          KC_GRV,        KC_BSLS,   KC_SLSH, KC_QUES,        KC_PIPE, \
            ____,    ____,                                                                       ____,       ____,             \
                                             ____, ____,  ____, ____,                                                          \
                                             ____, ____,  ____, ____,                                                          \
@@ -105,15 +106,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NUMPAD] = LAYOUT( \
-  ____,    ____,    ____,    ____,    ____,                          ____,   KC_7,   KC_8,   KC_9, ____, \
-  ____,    ____,    ____,    ____,    ____,                          ____,   KC_4,   KC_5,   KC_6,       ____, \
-  ____,    ____,    ____,    ____,    ____,                          ____,   KC_1,   KC_2,   KC_3,       ____, \
+  ____,    ____,    ____,    ____,    ____,                          ____,   KC_7,   KC_8,   KC_9,   ____, \
+  ____,    ____,    ____,    ____,    ____,                          ____,   KC_4,   KC_5,   KC_6,   ____, \
+  ____,    ____,    ____,    ____,    ____,                          ____,   KC_1,   KC_2,   KC_3,   ____, \
            ____,    ____,                                                            KC_0,   KC_DOT,             \
                                             ____, ____,  ____, ____,                                                          \
                                             ____, ____,  ____, ____,                                                          \
                                             ____, ____,  ____, ____                                                           \
 ),
 
+[_SYM] = LAYOUT( \
+  ____,    ____,    ____,    ____,    ____,                          ____,   KC_AMPR,  KC_ASTR, KC_LPRN, KC_RPRN, \
+  ____,    ____,    ____,    ____,    ____,                          ____,   KC_DLR,   KC_PERC, KC_CIRC, ____, \
+  ____,    ____,    ____,    ____,    ____,                          ____,   KC_EXLM,  KC_AT,   KC_HASH, ____, \
+           ____,    ____,                                                              KC_RPRN, ____,             \
+                                            ____, ____,  ____, ____,                                                          \
+                                            ____, ____,  ____, ____,                                                          \
+                                            ____, ____,  ____, ____                                                           \
+),
+
+/*
 [_RAISE2] = LAYOUT( \
   KC_EXLM,      KC_AT,         KC_HASH,      KC_DLR,       KC_PERC,                          KC_CIRC, KC_AMPR,      KC_ASTR,      KC_LPRN,       KC_RPRN,       \
   KC_1,         KC_2,          KC_3,         KC_4,         KC_5,                             KC_6,    KC_7,         KC_8,         KC_9,          KC_0,          \
@@ -123,7 +135,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                     ____, ____,  ____, ____,                                                                    \
                                                                     ____, ____,  ____, ____                                                                     \
 ),
+*/
 
+/*
 [_RAISE3] = LAYOUT( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                            KC_F6,   KC_F7,   KC_F8,    KC_F9,  KC_F10, \
   ____,    ____,    ____,    ____,    ____,                             ____,    ____,    ____,     KC_F11, KC_F12, \
@@ -133,6 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                               ____, ____,  ____, ____,                                              \
                                               ____, ____,  ____, ____                                               \
 )
+*/
 
 /* Raise (OLD)
  * ,----------------------------------,                             ,----------------------------------,
@@ -222,23 +237,24 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 
 /* combos */
-/*
 enum combos {
-  TI_TICK,
-  SL_SLASH,
-  HA_HASH,
-  PI_PIPE
+  YU_BSPC
+  // TI_TICK,
+  // SL_SLASH,
+  // HA_HASH,
+  // PI_PIPE
 };
 
-const uint16_t PROGMEM ti_combo[] = {KC_T, KC_I, COMBO_END};
-const uint16_t PROGMEM sl_combo[] = {KC_S, KC_L, COMBO_END};
-const uint16_t PROGMEM ha_combo[] = {KC_H, KC_A, COMBO_END};
-const uint16_t PROGMEM pi_combo[] = {KC_P, KC_I, COMBO_END};
+const uint16_t PROGMEM yu_combo[] = {KC_Y, KC_U, COMBO_END};
+// const uint16_t PROGMEM ti_combo[] = {KC_T, KC_I, COMBO_END};
+// const uint16_t PROGMEM sl_combo[] = {KC_S, KC_L, COMBO_END};
+// const uint16_t PROGMEM ha_combo[] = {KC_H, KC_A, COMBO_END};
+// const uint16_t PROGMEM pi_combo[] = {KC_P, KC_I, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-  [TI_TICK] = COMBO(ti_combo, KC_GRV),
-  [SL_SLASH] = COMBO(sl_combo, KC_SLSH),
-  [HA_HASH] = COMBO(ha_combo, KC_HASH),
-  [PI_PIPE] = COMBO(pi_combo, KC_PIPE)
+  [YU_BSPC] = COMBO(yu_combo, KC_BSPC),
+  // [TI_TICK] = COMBO(ti_combo, KC_GRV),
+  // [SL_SLASH] = COMBO(sl_combo, KC_SLSH),
+  // [HA_HASH] = COMBO(ha_combo, KC_HASH),
+  // [PI_PIPE] = COMBO(pi_combo, KC_PIPE)
 };
-*/
