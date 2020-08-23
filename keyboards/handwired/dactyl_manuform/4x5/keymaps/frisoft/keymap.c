@@ -94,6 +94,15 @@
 // #define RAISE2 MO(_RAISE2)
 // #define RAISE3 MO(_RAISE3)
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SFT_T(KC_SPC):
+            return 260;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Base (qwerty)
@@ -132,17 +141,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT( \
   KC_Q,        KC_W,          KC_E,             KC_R,          KC_T,                              KC_Y, KC_U,         KC_I,           KC_O,           KC_P,            \
-  KC_A,        KC_S,          KC_D,             KC_F,          KC_G,                              KC_H, KC_J,         KC_K,           KC_L,           KC_SCLN,         \
+  KC_A,        KC_S,          KC_D,             KC_F,          KC_G,                              KC_H, KC_J,         KC_K,           KC_L,           ALT_T(KC_SCLN),  \
   SFT_T(KC_Z), KC_X,          KC_C,             KC_V,          KC_B,                              KC_N, KC_M,         KC_COMM,        KC_DOT,         SFT_T(KC_QUOT),  \
                KC_DOWN,       KC_UP,                                                                                  KC_LEFT,        KC_RIGHT,                        \
-                                                      OSL(_L2), LT(_L1,KC_BSPC),            SFT_T(KC_SPC), KC_ENT,                                                     \
+                                             LT(_L2, KC_ESC), LT(_L1,KC_BSPC),              SFT_T(KC_SPC), KC_ENT,                                                     \
                                                  OSM(MOD_LCTL), OSM(MOD_LSFT),              OSM(MOD_LSFT), OSM(MOD_LCTL),                                              \
                                                  OSM(MOD_LALT), OSM(MOD_LGUI),              OSM(MOD_LGUI), OSM(MOD_LALT)
 ),
+                                                      // OSL(_L2), LT(_L1,KC_BSPC),            SFT_T(KC_SPC), KC_ENT,                                                     
 
 [_L1] = LAYOUT( \
   KC_1,          KC_2,    KC_3,    KC_4,    KC_5,                            KC_6,    KC_7,      KC_8,     KC_9,        KC_0,          \
-  KC_TAB,        ____,    KC_ESC,  KC_BSPC, KC_DEL,                          KC_LEFT, KC_DOWN,   KC_UP,    KC_RIGHT,    MOD_LALT,      \
+  KC_TAB,        ____,    KC_ESC,  KC_BSPC, KC_DEL,                          KC_LEFT, KC_DOWN,   KC_UP,    KC_RIGHT,    KC_LALT,       \
   OSM(MOD_LSFT), KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,                          ____,    KC_GRV,    KC_BSLS,  KC_SLSH,     SFT_T(KC_DEL), \
                  ____,    RESET,                                                                   ____,     ____,                     \
                                                    ____, ____,  ____, ____,                                                            \
@@ -152,13 +162,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_L2] = LAYOUT( \
   S(KC_1),   S(KC_2),    S(KC_3),    S(KC_4),    S(KC_5),                         S(KC_6),    S(KC_7),    S(KC_8),    S(KC_9),     S(KC_0),      \
-  ____,      ____,       S(KC_ESC),  S(KC_BSPC), S(KC_DEL),                       S(KC_LEFT), S(KC_DOWN), S(KC_UP),   S(KC_RIGHT), OSM(MOD_LALT),   \
+  ____,      ____,       S(KC_ESC),  S(KC_BSPC), S(KC_DEL),                       S(KC_LEFT), S(KC_DOWN), S(KC_UP),   S(KC_RIGHT), KC_ENT,   \
   ____,      S(KC_LBRC), S(KC_RBRC), S(KC_MINS), S(KC_EQL),                       ____,       S(KC_GRV),  S(KC_BSLS), S(KC_SLSH),  S(KC_DEL),    \
              ____,       ____,                                                                            ____,       ____,                      \
-                                                   ____, ____,           S(KC_SPC), S(KC_ENT),                                                   \
+                                                   ____, ____,           ____, ____,                                                   \
                                                    ____, ____,           ____,      ____,                                                        \
                                                    ____, ____,           ____,      OSL(_L3)                                                     \
 ),
+  // ____,      ____,       S(KC_ESC),  S(KC_BSPC), S(KC_DEL),                       S(KC_LEFT), S(KC_DOWN), S(KC_UP),   S(KC_RIGHT), OSM(MOD_LALT),   
+  //                                                 ____, ____,           S(KC_SPC), S(KC_ENT),                                                   
 
 [_L3] = LAYOUT( \
   KC_F1,  KC_F2,  KC_F3, KC_F4, KC_F5,                             KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, \

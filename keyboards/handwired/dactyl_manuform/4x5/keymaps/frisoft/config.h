@@ -37,11 +37,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define AUTO_SHIFT_TIMEOUT 150
 // #defi
 
-#define TAPPING_TERM 150 
-//#define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_TERM 170 
+#define TAPPING_TERM_PER_KEY
+#define PERMISSIVE_HOLD
+// #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_FORCE_HOLD
-#define RETRO_TAPPING
+// #define RETRO_TAPPING
 
 // #define ONESHOT_TAP_TOGGLE 0  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 1000  /* Time (in ms) before the one shot key is released */
