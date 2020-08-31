@@ -96,12 +96,52 @@
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        // case LT(_L1,KC_BSPC):
         case SFT_T(KC_SPC):
-            return 260;
+        case SFT_T(KC_Z):
+        case CTL_T(KC_X):
+        case ALT_T(KC_C):
+        case GUI_T(KC_V):
+        case GUI_T(KC_M):
+        case ALT_T(KC_COMM):
+        case CTL_T(KC_DOT):
+        case CTL_T(KC_LBRC):
+        case ALT_T(KC_RBRC):
+        case GUI_T(KC_MINS):
+        case GUI_T(KC_GRV):
+        case ALT_T(KC_BSLS):
+        case CTL_T(KC_SLSH):
+        case SFT_T(KC_QUOT):
+            // return 180;
+            return 180;
         default:
             return TAPPING_TERM;
     }
 }
+
+// bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+//     switch (keycode) {
+//         case SFT_T(KC_SPC):
+//         // case SFT_T(KC_Z):
+//         // case CTL_T(KC_X):
+//         // case ALT_T(KC_C):
+//         // case GUI_T(KC_V):
+//         // case GUI_T(KC_M):
+//         // case ALT_T(KC_COMM):
+//         // case CTL_T(KC_DOT):
+//         // case CTL_T(KC_LBRC):
+//         // case ALT_T(KC_RBRC):
+//         // case GUI_T(KC_MINS):
+//         // case GUI_T(KC_GRV):
+//         // case ALT_T(KC_BSLS):
+//         // case CTL_T(KC_SLSH):
+//         // case SFT_T(KC_QUOT):
+//             return true;
+//         default:
+//         // case LT(_L1,KC_BSPC):
+//             return true;
+//     }
+// }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -140,21 +180,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 
 [_BASE] = LAYOUT( \
-  KC_Q,        KC_W,          KC_E,             KC_R,          KC_T,                              KC_Y, KC_U,         KC_I,           KC_O,           KC_P,            \
-  KC_A,        KC_S,          KC_D,             KC_F,          KC_G,                              KC_H, KC_J,         KC_K,           KC_L,           ALT_T(KC_SCLN),  \
-  SFT_T(KC_Z), KC_X,          KC_C,             KC_V,          KC_B,                              KC_N, KC_M,         KC_COMM,        KC_DOT,         SFT_T(KC_QUOT),  \
-               KC_DOWN,       KC_UP,                                                                                  KC_LEFT,        KC_RIGHT,                        \
-                                             LT(_L2, KC_ESC), LT(_L1,KC_BSPC),              SFT_T(KC_SPC), KC_ENT,                                                     \
-                                                 OSM(MOD_LCTL), OSM(MOD_LSFT),              OSM(MOD_LSFT), OSM(MOD_LCTL),                                              \
+  KC_Q,          KC_W,           KC_E,             KC_R,           KC_T,                            KC_Y,    KC_U,          KC_I,           KC_O,           KC_P,            \
+  KC_A,          KC_S,           KC_D,             KC_F,           KC_G,                            KC_H,    KC_J,          KC_K,           KC_L,           KC_SCLN,         \
+  SFT_T(KC_Z),   CTL_T(KC_X),    ALT_T(KC_C),      GUI_T(KC_V),    KC_B,                            KC_N,    GUI_T(KC_M),   ALT_T(KC_COMM), CTL_T(KC_DOT),  SFT_T(KC_QUOT),  \
+                 KC_DOWN,        KC_LALT,                                                                                   KC_LEFT,        KC_RIGHT,                        \
+                                             LT(_L2, KC_TAB), LT(_L1,KC_BSPC),              SFT_T(KC_SPC), KC_ENT,                                                    \
+                                                 OSM(MOD_LCTL), OSM(MOD_LSFT),              OSM(MOD_LSFT), OSM(MOD_LCTL),                                             \
                                                  OSM(MOD_LALT), OSM(MOD_LGUI),              OSM(MOD_LGUI), OSM(MOD_LALT)
 ),
                                                       // OSL(_L2), LT(_L1,KC_BSPC),            SFT_T(KC_SPC), KC_ENT,                                                     
 
 [_L1] = LAYOUT( \
-  KC_1,          KC_2,    KC_3,    KC_4,    KC_5,                            KC_6,    KC_7,      KC_8,     KC_9,        KC_0,          \
-  KC_TAB,        ____,    KC_ESC,  KC_BSPC, KC_DEL,                          KC_LEFT, KC_DOWN,   KC_UP,    KC_RIGHT,    KC_LALT,       \
-  OSM(MOD_LSFT), KC_LBRC, KC_RBRC, KC_MINS, KC_EQL,                          ____,    KC_GRV,    KC_BSLS,  KC_SLSH,     SFT_T(KC_DEL), \
-                 ____,    RESET,                                                                   ____,     ____,                     \
+  KC_1,          KC_2,           KC_3,             KC_4,           KC_5,                            KC_6,    KC_7,          KC_8,           KC_9,           KC_0,           \
+  KC_TAB,        ____,           KC_ESC,           KC_BSPC,        KC_DEL,                          KC_LEFT, KC_DOWN,       KC_UP,          KC_RIGHT,       KC_LALT,        \
+  OSM(MOD_LSFT), CTL_T(KC_LBRC), ALT_T(KC_RBRC),   GUI_T(KC_MINS), KC_EQL,                          ____,    GUI_T(KC_GRV), ALT_T(KC_BSLS), CTL_T(KC_SLSH), ____, \
+                 RESET,    ____,                                                                     ____,     ____,                     \
                                                    ____, ____,  ____, ____,                                                            \
                                                    ____, ____,  ____, ____,                                                            \
                                                    ____, ____,  ____, ____                                                             \
@@ -330,24 +370,38 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 
 /* combos */
-//enum combos {
-  //YU_BSPC
+// enum combos {
+//   SPCSC_COL
+    // YU_BSPC
   // TI_TICK,
   // SL_SLASH,
   // HA_HASH,
   // PI_PIPE
-//};
+// };
 
+// const uint16_t PROGMEM spcsc_col[] = {KC_L, KC_SCLN, COMBO_END};
 //const uint16_t PROGMEM yu_combo[] = {KC_Y, KC_U, COMBO_END};
 // const uint16_t PROGMEM ti_combo[] = {KC_T, KC_I, COMBO_END};
 // const uint16_t PROGMEM sl_combo[] = {KC_S, KC_L, COMBO_END};
 // const uint16_t PROGMEM ha_combo[] = {KC_H, KC_A, COMBO_END};
 // const uint16_t PROGMEM pi_combo[] = {KC_P, KC_I, COMBO_END};
 
-//combo_t key_combos[COMBO_COUNT] = {
+// combo_t key_combos[COMBO_COUNT] = {
+  // [SPCSC_COL] = COMBO_ACTION(spcsc_col)
+  // [SPCSC_COL] = COMBO(spcsc_col, KC_J)
   //[YU_BSPC] = COMBO(yu_combo, KC_BSPC),
   // [TI_TICK] = COMBO(ti_combo, KC_GRV),
   // [SL_SLASH] = COMBO(sl_combo, KC_SLSH),
   // [HA_HASH] = COMBO(ha_combo, KC_HASH),
   // [PI_PIPE] = COMBO(pi_combo, KC_PIPE)
-//};
+// };
+
+// void process_combo_event(uint8_t combo_index, bool pressed) {
+//   switch(combo_index) {
+//     case SPCSC_COL:
+//       if (pressed) {
+//         tap_code16(LSFT(KC_SCLN));
+//       }
+//       break;
+//   }
+// }
