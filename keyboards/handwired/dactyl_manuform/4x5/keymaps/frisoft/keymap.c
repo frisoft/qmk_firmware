@@ -98,6 +98,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // case LT(_L1,KC_BSPC):
         case SFT_T(KC_SPC):
+            return 180;
         case SFT_T(KC_Z):
         case CTL_T(KC_X):
         case ALT_T(KC_C):
@@ -113,7 +114,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case CTL_T(KC_SLSH):
         case SFT_T(KC_QUOT):
             // return 180;
-            return 180;
+            return 250;
+        case LT(_L1,KC_BSPC):
+            return TAPPING_TERM-30;
         default:
             return TAPPING_TERM;
     }
@@ -137,8 +140,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 //         // case CTL_T(KC_SLSH):
 //         // case SFT_T(KC_QUOT):
 //             return true;
+//         case LT(_L1,KC_BSPC):
+//             return false;
 //         default:
-//         // case LT(_L1,KC_BSPC):
 //             return true;
 //     }
 // }
@@ -183,23 +187,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Q,          KC_W,           KC_E,             KC_R,           KC_T,                            KC_Y,    KC_U,          KC_I,           KC_O,           KC_P,            \
   KC_A,          KC_S,           KC_D,             KC_F,           KC_G,                            KC_H,    KC_J,          KC_K,           KC_L,           KC_SCLN,         \
   SFT_T(KC_Z),   CTL_T(KC_X),    ALT_T(KC_C),      GUI_T(KC_V),    KC_B,                            KC_N,    GUI_T(KC_M),   ALT_T(KC_COMM), CTL_T(KC_DOT),  SFT_T(KC_QUOT),  \
-                 KC_DOWN,        KC_LALT,                                                                                   KC_LEFT,        KC_RIGHT,                        \
-                                             LT(_L2, KC_TAB), LT(_L1,KC_BSPC),              SFT_T(KC_SPC), KC_ENT,                                                    \
-                                                 OSM(MOD_LCTL), OSM(MOD_LSFT),              OSM(MOD_LSFT), OSM(MOD_LCTL),                                             \
-                                                 OSM(MOD_LALT), OSM(MOD_LGUI),              OSM(MOD_LGUI), OSM(MOD_LALT)
+                 KC_LBRC,        KC_RBRC,                                                                                   KC_MINS,        KC_EQL,                        \
+                                                        KC_TAB, LT(_L1,KC_BSPC),             SFT_T(KC_SPC), KC_ENT,                                                    \
+                                                 OSM(MOD_LCTL), KC_ESC,                            KC_BSPC, OSM(MOD_LCTL),                                             \
+                                                 OSM(MOD_LALT), OSM(MOD_LGUI),               OSM(MOD_LGUI), OSM(MOD_LALT)
 ),
                                                       // OSL(_L2), LT(_L1,KC_BSPC),            SFT_T(KC_SPC), KC_ENT,                                                     
+                                            //  LT(_L2, KC_TAB), LT(_L1,KC_BSPC),              SFT_T(KC_SPC), KC_ENT,                                                    
 
 [_L1] = LAYOUT( \
-  KC_1,          KC_2,           KC_3,             KC_4,           KC_5,                            KC_6,    KC_7,          KC_8,           KC_9,           KC_0,           \
-  KC_TAB,        ____,           KC_ESC,           KC_BSPC,        KC_DEL,                          KC_LEFT, KC_DOWN,       KC_UP,          KC_RIGHT,       KC_LALT,        \
-  OSM(MOD_LSFT), CTL_T(KC_LBRC), ALT_T(KC_RBRC),   GUI_T(KC_MINS), KC_EQL,                          ____,    GUI_T(KC_GRV), ALT_T(KC_BSLS), CTL_T(KC_SLSH), ____, \
-                 RESET,    ____,                                                                     ____,     ____,                     \
-                                                   ____, ____,  ____, ____,                                                            \
-                                                   ____, ____,  ____, ____,                                                            \
-                                                   ____, ____,  ____, ____                                                             \
+  KC_1,          KC_2,           KC_3,             KC_4,           KC_5,                            KC_6,    KC_7,          KC_8,           KC_9,           KC_0, \
+  ____,          ____,           KC_ESC,           LALT(KC_BSPC), KC_DEL,                          KC_LEFT, KC_DOWN,       KC_UP,          KC_RIGHT,       ____, \
+  OSM(MOD_LSFT), CTL_T(KC_LBRC), ALT_T(KC_RBRC),   KC_MINS, KC_EQL,                                 ____,    GUI_T(KC_GRV), ALT_T(KC_BSLS), CTL_T(KC_SLSH), ____, \
+                 ____,    ____,                                                                                             ____,           ____,                 \
+                                                             ____, ____,                            ____, ____,                                                            \
+                                                             ____, ____,                            ____, ____,                                                            \
+                                                             ____, ____,                            ____, RESET                                                             \
 ),
 
+/*
 [_L2] = LAYOUT( \
   S(KC_1),   S(KC_2),    S(KC_3),    S(KC_4),    S(KC_5),                         S(KC_6),    S(KC_7),    S(KC_8),    S(KC_9),     S(KC_0),      \
   ____,      ____,       S(KC_ESC),  S(KC_BSPC), S(KC_DEL),                       S(KC_LEFT), S(KC_DOWN), S(KC_UP),   S(KC_RIGHT), KC_ENT,   \
@@ -209,6 +215,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                    ____, ____,           ____,      ____,                                                        \
                                                    ____, ____,           ____,      OSL(_L3)                                                     \
 ),
+*/
   // ____,      ____,       S(KC_ESC),  S(KC_BSPC), S(KC_DEL),                       S(KC_LEFT), S(KC_DOWN), S(KC_UP),   S(KC_RIGHT), OSM(MOD_LALT),   
   //                                                 ____, ____,           S(KC_SPC), S(KC_ENT),                                                   
 
